@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pregunta y Respuesta</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            text-align: center;
+        }
+        img {
+            width: 200px; /* Tamaño fijo para las imágenes */
+            height: auto;
+            margin: 1rem 0;
+        }
+        button {
+            background-color: #007bff;
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            margin: 0.5rem;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: transform 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .no-button {
+            background-color: #dc3545;
+        }
+        .no-button:hover {
+            background-color: #c82333;
+        }
+        .hidden {
+            display: none;
+        }
+        .large-button {
+            transform: scale(1.2);
+        }
+        .extra-large-button {
+            transform: scale(2);
+        }
+        .small-button {
+            transform: scale(0.8);
+        }
+    </style>
+</head>
+<body>
+    <!-- Primera Sección -->
+    <div class="container" id="questionPage">
+        <p>¿Te puedo hacer una pregunta?</p>
+        <img src="https://i.pinimg.com/736x/b1/04/db/b104dba3c1740754b404dae7a0733a4e.jpg" alt="Imagen de ejemplo">
+        <div>
+            <button id="yesButton">Sí</button>
+            <button id="noButton" class="no-button">No</button>
+        </div>
+    </div>
+
+    <!-- Segunda Sección -->
+    <div class="container hidden" id="secondPage">
+        <p>Vamos de nuevo, ¿te puedo hacer una pregunta?</p>
+        <img src="https://i.pinimg.com/originals/35/31/a2/3531a2a2767540a38bba3cf352a65bde.jpg" alt="Imagen de ejemplo">
+        <div>
+            <button id="secondYesButton1">Sí</button>
+            <button id="secondYesButton2">Sí</button>
+        </div>
+    </div>
+
+    <!-- Tercera Sección -->
+    <div class="container hidden" id="thirdPage">
+        <p>¿Quieres ser mi novia?</p>
+        <img src="files/dowland/foto1" alt="Imagen de ejemplo">
+        <div>
+            <button id="thirdYesButton" class="large-button">Sí</button>
+            <button id="thirdNoButton" class="no-button">No</button>
+        </div>
+    </div>
+
+    <!-- Cuarta Sección -->
+    <div class="container hidden" id="thankYouPage">
+        <p>Gracias por aceptar mi amor</p>
+        <img src="files/dowland/foto2" alt="Imagen de agradecimiento">
+    </div>
+
+    <script>
+        // Función para ocultar y mostrar secciones
+        function showPage(pageToShow, pageToHide) {
+            pageToShow.classList.remove('hidden');
+            pageToHide.classList.add('hidden');
+        }
+
+        // Eventos para el botón "No" en la primera página
+        document.getElementById('noButton').addEventListener('click', function() {
+            document.getElementById('noButton').classList.add('small-button');
+            document.getElementById('yesButton').classList.add('large-button');
+            showPage(document.getElementById('secondPage'), document.getElementById('questionPage'));
+        });
+
+        // Eventos para los botones "Sí" en la primera y segunda página
+        document.getElementById('yesButton').addEventListener('click', function() {
+            showPage(document.getElementById('thirdPage'), document.getElementById('questionPage'));
+        });
+
+        document.getElementById('secondYesButton1').addEventListener('click', function() {
+            showPage(document.getElementById('thirdPage'), document.getElementById('secondPage'));
+        });
+
+        document.getElementById('secondYesButton2').addEventListener('click', function() {
+            showPage(document.getElementById('thirdPage'), document.getElementById('secondPage'));
+        });
+
+        // Variables para manejar el estado de los botones en la tercera página
+        let yesButtonSize = 1.2;
+        let noButtonSize = 1;
+
+        // Eventos para los botones en la tercera página
+        document.getElementById('thirdYesButton').addEventListener('click', function() {
+            showPage(document.getElementById('thankYouPage'), document.getElementById('thirdPage'));
+        });
+
+        document.getElementById('thirdNoButton').addEventListener('click', function() {
+            yesButtonSize += 0.2; // Aumenta el tamaño del botón "Sí"
+            noButtonSize -= 0.2; // Disminuye el tamaño del botón "No"
+
+            // Actualiza el tamaño de los botones
+            document.getElementById('thirdYesButton').style.transform = `scale(${yesButtonSize})`;
+            document.getElementById('thirdNoButton').style.transform = `scale(${noButtonSize})`;
+        });
+    </script>
+</body>
+</html>
